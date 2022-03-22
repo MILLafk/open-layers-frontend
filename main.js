@@ -451,7 +451,7 @@ function newaddRowHandlers() {
                     }
                 }
             };
-        }(rows[i]);
+        }(rows[i])
     }
 }
 // end: attribute query

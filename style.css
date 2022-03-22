@@ -143,6 +143,7 @@ body {
     height: 35px;
     width: 50px;
     margin: 10px;
+    cursor: pointer;
 }
 
 .attListDiv {
