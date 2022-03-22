@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GSC Water District GIS</title>
+
     <link rel="icon" src="./resources/images/main_logo_transparent_220x220.png" type="image/x-icon">
 
     <link rel="stylesheet" href="./resources/ol/ol.css">
@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body>
+
+<body>  
+
 
     <div class="main-container">
         <div class="side-bar">
@@ -26,7 +28,6 @@
                     <input type="checkbox" name="landmarks" id="landmarks" value="Manhattan Landmarks" checked
                         onchange="toggleLayer(event);">
                     <label for="landmarks"> Manhattan Landmarks </label>
-
                 </li>
 
                 <li class="items">
@@ -60,7 +61,7 @@
                     <div class="modal-header">
                         <span class="close">&times;</span>
                         <h2>Modal Header</h2>
-                    </div>
+                    </div>                                                                                                                                                                                                                                                                                                              
 
                     <div class="modal-body">
                         <form class="form-control">
@@ -101,8 +102,32 @@
             <div id="map"></div>
         </div>
 
-
+          <div class="attyQueryDiv" id="attyQueryDiv">
+                <div class="headerDiv" id="headerDiv">
+                    <label for="">Attribute Query</label>
+                </div><br>
+                <label for="">Select Layer</label>
+                <select name="selectLayer" id="selectLayer">
+                </select><br><br>
+    
+                <label for="">Select Attribute</label>
+                <select name="selectAttribute" id="selectAttribute">
+                </select><br><br>
+    
+                <label for="">Select Operator</label>
+                <select name="selectOperator" id="selectOperator">
+                </select><br><br>
+    
+                <label for="">Enter Value</label>
+                <input type="text" name="enterValue" id="enterValue">
+                </select><br><br>
+    
+                <button type="button" id="attQryRun" class="attQryRun" onclick="attributeQuery()">Run</button>
+    
+            </div>
+      
     </div>
+
 
 
     <script src="./resources/ol/ol.js"></script>
