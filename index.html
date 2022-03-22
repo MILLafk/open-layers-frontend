@@ -19,34 +19,34 @@
     <div class="main-container">
         <div class="side-bar">
             <img src="./resources/images/main_logo_transparent_220x220.png" alt="logo">
-            <div class="layers-list">
+            <ul class="layers-list">
                 <h1>Manhattan Layers</h1>
 
-                <div class="items">
+                <li class="items">
                     <input type="checkbox" name="landmarks" id="landmarks" value="Manhattan Landmarks" checked
                         onchange="toggleLayer(event);">
                     <label for="landmarks"> Manhattan Landmarks </label>
 
-                </div>
+                </li>
 
-                <div class="items">
+                <li class="items">
                     <input type="checkbox" name="roads" id="roads" value="Manhattan Roads" checked
                         onchange="toggleLayer(event);">
                     <label for="roads"> Manhattan Roads </label>
-                </div>
+                </li>
 
-                <div class="items">
+                <li class="items">
                     <input type="checkbox" name="pois" id="pois" value="Manhattan POI" checked
                         onchange="toggleLayer(event);">
                     <label for="pois"> Manhattan Point of Interests </label>
-                </div>
+                </li>
 
-                <div class="items">
+                <li class="items">
                     <input type="checkbox" name="states" id="states" value="USA States" checked
                         onchange="toggleLayer(event);">
                     <label for="states"> USA States </label>
-                </div>
-            </div>
+                </li>
+            </ul>
 
             <!-- Button Open/Close Modal -->
             <button id="myBtn">Add Layer</button>
