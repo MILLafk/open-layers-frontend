@@ -83,9 +83,9 @@ body {
 
 #myBtn{
     width: 180px;
-    height: 40px;
-    color: #c7d4eb;
-    background-color: #67748b;
+    height: 50px;
+    color: #f5ffff;
+    background-color: #616161;
     border: 0px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
@@ -93,10 +93,16 @@ body {
 }
 
 #myBtn:hover{
-    color: #1d5ccf;
-    background-color: #c7d4eb;
+    color: #f5ffff;
+    background-color: #04aa6d;
     
     
+}
+
+.form-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .form-control{
@@ -111,7 +117,16 @@ body {
     background-color: #d3d6db;
     border: 0px;
     border-radius: 10px;
+    padding-left: 20px;
 }
+
+.form-control select{
+   width: 30%;
+}
+
+.form-control select:selected{
+    width: 30%;
+ }
 
 /* The Modal (background) */
 .modal {

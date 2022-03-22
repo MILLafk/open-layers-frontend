@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GSC Water District GIS</title>
-    <link rel = "icon" src="./resources/images/main_logo_transparent_220x220.png" type = "image/x-icon">
+    <link rel="icon" src="./resources/images/main_logo_transparent_220x220.png" type="image/x-icon">
 
     <link rel="stylesheet" href="./resources/ol/ol.css">
     <link rel="stylesheet" href="./resources/layerswitcher/ol-layerswitcher.css">
@@ -64,31 +64,25 @@
 
                     <div class="modal-body">
                         <form class="form-control">
-                            <label for="url">URL:</label><br>
-                            <input type="text" id="url" name="url"><br>
+
+                            <label for="url">Title:</label>
+                            <input type="text" id="title" name="title"><br>
 
                             <label for="url">URL:</label><br>
                             <input type="text" id="url" name="url"><br>
 
-                            <label for="url">URL:</label><br>
-                            <input type="text" id="url" name="url"><br>
+                            <label for="type">Type:</label><br>
+                            <div class="form-group">
+                                <select name="type" id="type">
+                                    <option value="wms">WMS</option>
+                                    <option value="csw">CSW</option>
+                                    <option value="wmts">WMTS</option>
+                                    <option value="tms">TMS</option>
+                                    <option value="wfs">WFS</option>
+                                </select>
 
-                            <label for="type">Type:</label>
-                            <select name="type" id="type">
-                                <option value="select">Option 1</option>
-                                <option value="select">Option 2</option>
-                                <option value="selects">Option 3</option>
-                                <option value="select">Option 4</option>
-                            </select><br>
-
-                            <select name="type" id="type">
-                                <option value="select">Option 1</option>
-                                <option value="select">Option 2</option>
-                                <option value="selects">Option 3</option>
-                                <option value="select">Option 4</option>
-                            </select><br>
-
-                            <input id="myBtn" type="submit" value="Run">
+                                <input id="myBtn" type="submit" value="Save">
+                            </div>
 
                         </form>
                     </div>
@@ -108,11 +102,7 @@
         </div>
 
 
-
-
     </div>
-
-
 
 
     <script src="./resources/ol/ol.js"></script>
