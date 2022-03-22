@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GSC Water District GIS</title>
-    <link rel = "icon" src="./resources/images/main_logo_transparent_220x220.png" type = "image/x-icon">
 
     <link rel="stylesheet" href="./resources/ol/ol.css">
     <link rel="stylesheet" href="./resources/layerswitcher/ol-layerswitcher.css">
@@ -14,90 +12,45 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body>
+<body>  
 
-    <div class="main-container">
-        <div class="side-bar">
-            <img src="./resources/images/main_logo_transparent_220x220.png" alt="logo">
-            <div class="layers-list">
-                <h1>Manhattan Layers</h1>
+        <div class="main-container">
+            <div class="side-bar">
+                <img src="./resources/images/main_logo_transparent_220x220.png" alt="logo">
+                <div class="layers-list">
+                    <h1>Manhattan Layers</h1>
 
-                <div class="items">
-                    <input type="checkbox" name="landmarks" id="landmarks" value="Manhattan Landmarks" checked
-                        onchange="toggleLayer(event);">
-                    <label for="landmarks"> Manhattan Landmarks </label>
+                    <div class="items">
+                        <input type="checkbox" name="osm" id="osm" value="Open Street Map" checked onchange="toggleLayer(event);">     
+                        <label for="osm"> Open Street Map</label>
+                    </div>
 
-                </div>
+                    <div class="items">
+                        <input type="checkbox" name="landmarks" id="landmarks" value="Manhattan Landmarks" checked onchange="toggleLayer(event);">
+                        <label for="landmarks"> Manhattan Landmarks </label>
 
-                <div class="items">
-                    <input type="checkbox" name="roads" id="roads" value="Manhattan Roads" checked
-                        onchange="toggleLayer(event);">
-                    <label for="roads"> Manhattan Roads </label>
-                </div>
+                    </div>
 
-                <div class="items">
-                    <input type="checkbox" name="pois" id="pois" value="Manhattan POI" checked
-                        onchange="toggleLayer(event);">
-                    <label for="pois"> Manhattan Point of Interests </label>
-                </div>
+                    <div class="items">
+                        <input type="checkbox" name="roads" id="roads" value="Manhattan Roads" checked onchange="toggleLayer(event);">
+                        <label for="roads"> Manhattan Roads </label>     
+                    </div>
 
-                <div class="items">
-                    <input type="checkbox" name="states" id="states" value="USA States" checked
-                        onchange="toggleLayer(event);">
-                    <label for="states"> USA States </label>
-                </div>
+                    <div class="items">
+                        <input type="checkbox" name="pois" id="pois" value="Manhattan POI" checked onchange="toggleLayer(event);">
+                        <label for="pois"> Manhattan Point of Interests </label>          
+                    </div>
+
+                    <div class="items">
+                        <input type="checkbox" name="states" id="states" value="USA States" checked onchange="toggleLayer(event);">
+                        <label for="states"> USA States </label>          
+                    </div>
+                                    
+                </div>        
             </div>
 
-            <!-- Button Open/Close Modal -->
-            <button id="myBtn">Add Layer</button>
-
-            <!-- The Modal -->
-            <div id="myModal" class="modal">
-
-                <!-- Modal content -->
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <span class="close">&times;</span>
-                        <h2>Modal Header</h2>
-                    </div>
-
-                    <div class="modal-body">
-                        <form class="form-control">
-                            <label for="url">URL:</label><br>
-                            <input type="text" id="url" name="url"><br>
-
-                            <label for="url">URL:</label><br>
-                            <input type="text" id="url" name="url"><br>
-
-                            <label for="url">URL:</label><br>
-                            <input type="text" id="url" name="url"><br>
-
-                            <label for="type">Type:</label>
-                            <select name="type" id="type">
-                                <option value="select">Option 1</option>
-                                <option value="select">Option 2</option>
-                                <option value="select">Option 3</option>
-                                <option value="select">Option 4</option>
-                            </select><br>
-
-                            <select name="type" id="type">
-                                <option value="select">Option 1</option>
-                                <option value="select">Option 2</option>
-                                <option value="select">Option 3</option>
-                                <option value="select">Option 4</option>
-                            </select><br>
-
-                            <input id="myBtn" type="submit" value="Run">
-
-                        </form>
-                    </div>
-
-                    <div class="modal-footer">
-                        <h3>Modal Footer</h3>
-                    </div>
-                </div>
-
+            <div class="map-container">
+                <div id="map"></div>  
             </div>
 
             <div class="attyQueryDiv" id="attyQueryDiv">
@@ -122,10 +75,6 @@
     
                 <button type="button" id="attQryRun" class="attQryRun" onclick="attributeQuery()">Run</button>
     
-            </div>
-
-            <div class="attListDiv" id="attListDiv">
-
             </div>
     
             

@@ -52,11 +52,6 @@ body {
     margin: 10px;
 }
 
-.items input{
-    height: 19px;
-    width: 19px;
-}
-
 
 .items label {
     font-size: 20px;
@@ -73,7 +68,7 @@ body {
     top: auto;
     right: auto;
     bottom: 15px;
-    left: 82%;
+    left: 62%;
     transform: translateX(-50%);
     border: 0px;
     padding: 6px;
