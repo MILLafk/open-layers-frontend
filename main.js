@@ -275,10 +275,183 @@ $(function () {
             var url = "https://localhost:8080/geoserver/GISSimplified/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
             //console.log(url);
             newaddGeoJsonToMap(url);
-            newPopulateQueryTable(url);
+            newpopulateQueryTable(url);
             settimeout(function () { newaddRowHandlers(url); }, 300);
             map.set("isLoading", 'NO');
         }
     }
 });
+
+function newaddGeoJsonToMap(url) {
+
+    if (geojson) {
+        geojson.getSource().clear();
+        map.removeLayer(geojson);
+    }
+
+    var style = new ol.style.style({
+        //fill: new ol.style.Fill({
+            //color: 'rgba (0, 255, 255, 0.7)'
+        //});
+        stroke: new ol.style.Stroke({
+            color: '#FFFF00',
+            width: 3
+        }),
+        image: new ol.style.Circle({
+            radius: 7,
+            fill: new ol.style.Fill({
+                color: '#FFFF00'
+            })
+        })
+    });
+
+    geojson = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            url: url,
+            format: new ol.format.GeoJSON()
+        }),
+        style: style,
+    });
+
+    geojson.getSource().on('addfeature', function () {
+        map.getview().fit(
+            geojson.getSource().getExtent(),
+            { duration: 1590, size: map.getSize(), maxZoom: 21 }
+        );
+    });
+    map.addLayer(geojson);
+};
+
+function newpopulateQueryTable (url) {
+    if (typeof attributePanel !== 'undefined') {
+        if (attributePanel.parentElement !== null) {
+            attributePanel.close();
+        }
+    }
+
+    $.getJSON(url, function (data) {
+        var col = [];
+        col.push('id');
+        for(var i = 0; i< data.features.length; i++) {
+
+            for (var key in data.features[i].properties) {
+
+                if (col.idexOf(key) === -1) {
+                    col.push(key);
+                }
+            }
+        }
+
+        var table = document.createElement("table");
+
+        table .setAttribute("class", "table table-bordered table-hover table-condensed");
+        table.setAttribute("id", "attQryTable");
+        //CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+        var tr = table.insertRow(-1);       //TABLE ROW
+
+        for (var i = 0; i < col.length; i++) {
+            var th = document.createElement("th");      //TABLE HEADER
+            th.innerHTML = col[i];
+            tr.appendChild(th);
+        }
+
+        //ADD JSON DATA TO THE TABLE AS ROWS
+        for (var i=0; i < data.features.length; i++) {
+            tr = table.insertRow(-1);
+            for (var j=0; j < col.length; j++) {
+                var tabCell= tr.insertCell(-1);
+                if (j==0) { tabCell.innerHTML = data.features[i]['id']; }
+                else {
+                    tabCell.innerHTML = data.features[i].properties[col[j]];
+                }
+            }
+        }
+
+        //var tabDiv = document.createElement("div");
+        var tabDiv = document.getElementById('attListDiv');
+
+        var delTab = document.getElementById('attQryTable');
+        if (delTab) {
+            tabDiv.removeChild(delTab);
+        }
+
+        tabDiv.appendChild(table);
+
+        document.getElementById("attListDiv").style.display = "block";
+    });
+
+    var highlightStyle = new ol.style.Style({
+        fill: new ol.style.Fill ({
+            color: 'rgba (255, 0, 255, 0.3)',
+        }),
+        stroke: new ol.style.Stroke ({
+            color: '#FF00FF',
+            width: 3,
+        }),
+        image: new ol.style.Circle({
+            radius: 10,
+            fill: new ol.style.Fill({
+                color: '#FF00FF'
+            })
+        })
+    });
+
+    var featureOverlay  = new ol.layer.Vector({
+        source: new ol.source.Vector(),
+        map: map,
+        style: highlightStyle
+    });
+};
+
+function newaddRowHandlers() {
+    var table = document.getElementById("attQryTable");
+    var rows = document.getElementById("attQryTable").rows;
+    var heads = table.getElementsByTagName('th');
+    var col_no;
+    for (var i=0; i < heads.length; i++) {
+        //take each cell
+        var head = heads [i];
+        if (head.innerHTML == 'id') {
+            col_no = i + 1;
+        }
+    }
+    for (i = 0; i < rows.length; i++) {
+        rows[i].onclick = function () {
+            return function () {
+                featureOverlay.getSource().clear();
+
+                $(function () {
+                    $("attQryTable td").each(function () {
+                        $(this).parent("tr").css("background-color", "white");
+                    });
+                });
+                var cell = this.cells[col_no - 1];
+                var id = cell.innerHTML;
+                $(document).ready(function () {
+                    $("#attQryTable td:nth-child (" + col_no + ")").each(function () {
+                        if ($(this).text() == id) {
+                            $(this).parent("tr").css("background-color", "#d1d8e2")
+                        }
+                    });
+                });
+
+                var features = geojson.getSource().getFeatures();
+
+                for (i = 0; i < features.length; i++) {
+                    if (features[i].getID() == id) {
+                        featureOverlay.getSource().addFeature(features[i]); 
+
+                        featureOverlay.getSource().on('addfeature', function () {
+                            map.getView().fit(
+                                featureOverlay.getSource().getExtent(),
+                                { duration: 1500, size: map.getSize(), maxZoom: 24 }
+                            );
+                        });
+                    }
+                }
+            };
+        }(rows[i]);
+    }
+}
 // end: attribute query
