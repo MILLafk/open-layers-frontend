@@ -2,7 +2,7 @@
 
 *{
     font-family: 'Poppins', sans-serif;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 body {
@@ -39,13 +39,12 @@ body {
 }
 
 .side-bar h1{
-    font-size: 24px;
+    font-size: 14px;
 }
 
 .layers-list{
     display: flex;
     flex-direction: column;
-    margin: 25px;
     list-style-type:none;
 }
 
@@ -53,14 +52,9 @@ body {
     margin: 10px;
 }
 
-.items input{
-    height: 19px;
-    width: 19px;
-}
-
 
 .items label {
-    font-size: 20px;
+    font-size: 14px;
     color: #E5E5E9;
 }
 
@@ -74,13 +68,14 @@ body {
     top: auto;
     right: auto;
     bottom: 15px;
-    left: 82%;
+    left: 62%;
     transform: translateX(-50%);
     border: 0px;
     padding: 6px;
     border-radius: 12px;
     background-color: #c7d4eb;
 }
+
 
 #myBtn{
     width: 180px;
@@ -198,4 +193,114 @@ body {
     background-color: #7A9FE6;
     color: white;
   }
+
+
+
+
+
+
+.myButtonDiv {
+    position: relative;
+    display: block;
+    margin: 1px auto auto 10px;
+}
+
+.attyQueryDiv {
+    position: absolute;
+    display: none;
+    margin: 70px auto auto 45px;
+    /* padding: 10px; */
+    width: 250px;
+    /* height: 250px; */
+    background-color: rgba(255, 255, 255, 0.9);
+    font-family: inherit;
+    font-size: 1em;
+    line-height: 1.45;
+    border-radius: 2px;
+    border: 1px solid #d1d1d1;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
+    /* z-index: 4; */
+    /* overflow: scroll; */
+}
+
+#headerDiv {
+    background-color: midnightblue;
+    height: 35px;
+}
+
+#headerDiv label {
+    color: white;
+}
+
+.attyQueryDiv select {
+    width: 225px;
+    height: 35px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin: 0px auto 0px 10px;
+}
+
+
+.attyQueryDiv input {
+    width: 225px;
+    height: 35px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin: 0px auto 0px 10px;
+}
+
+.attyQueryDiv label {
+    color: grey;
+    margin: 10px 10px 0px 10px;
+}
+
+.attyQueryDiv label:nth-child(1) {
+    margin: 10px;
+    font-weight: bold;
+}
+
+.attListDiv {
+    position: absolute;
+    display: none;
+    margin: 350px auto auto 350px;
+    /* padding: 10px; */
+    width: auto;
+    max-width: 750px;
+    /* height: auto;
+    max-height: 250px; */
+    height: 250px;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-family: inherit;
+    font-size: 1em;
+    line-height: 1.45;
+    border-radius: 2px;
+    border: 1px solid #d1d1d1;
+    box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.5);
+    /* z-index: 5; */
+    overflow: scroll;
+}
+
+#attQryTable {
+    padding: 0;
+    border-collapse: collapse;
+}
+
+#attQryTable, td, th {
+    padding: 0px 5px 0px 5px;
+    border: 1px solid black;
+}
+
+#attQryTable th {
+    color: white;
+    background-color: midnightblue;
+    position: sticky;
+    top: 0;
+    font-style: normal;
+    padding: 5px 10px 5px 10px;
+}
+
+#attQryTable tr:hover {
+/* {font-weight: bolder; background-color: rgb(255,255,255);} */
+background-color: lightgrey;
+}
 
