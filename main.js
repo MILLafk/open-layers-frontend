@@ -1,7 +1,7 @@
 var mapView = new ol.View ({
     //GenSan Coordinates
-    // center: ol.proj.fromLonLat([125.172 , 6.113]),
-    center: ol.proj.fromLonLat([-73.96511 , 40.77919]),
+    center: ol.proj.fromLonLat([125.172 , 6.113]),
+    // center: ol.proj.fromLonLat([-73.96511 , 40.77919]),
     zoom: 12
 });
 
