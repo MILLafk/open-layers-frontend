@@ -35,7 +35,6 @@ var LMManhattan = new ol.layer.Tile({
 
 map.addLayer(LMManhattan);
 
-
 var RoadManhattan = new ol.layer.Tile({
     title: "Manhattan Roads",
     source: new ol.source.TileWMS({
@@ -48,7 +47,6 @@ var RoadManhattan = new ol.layer.Tile({
 
 map.addLayer(RoadManhattan);
 
-
 var POIManhattan = new ol.layer.Tile({
     title: "Manhattan POI",
     source: new ol.source.TileWMS({
@@ -60,7 +58,6 @@ var POIManhattan = new ol.layer.Tile({
 })
 
 map.addLayer(POIManhattan);
-
 
 var USAStates = new ol.layer.Tile({
     title: "USA States",
@@ -82,6 +79,7 @@ map.addLayer(USAStates);
 //     groupSelectStyle:'children'
 // });
 
+
 // map.addControl(layerSwitcher);
 
 function toggleLayer(e) {
@@ -95,6 +93,7 @@ function toggleLayer(e) {
     });
 }
 
+//Display coordinates in map
 
 var mousePosition = new ol.control.MousePosition({
     className: 'mousePosition',
@@ -103,3 +102,30 @@ var mousePosition = new ol.control.MousePosition({
 });
 
 map.addControl(mousePosition);
+
+
+//Modal
+
+// Get the modal
+var modal = document.getElementById("myModal");
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
