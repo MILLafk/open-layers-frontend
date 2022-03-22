@@ -6,54 +6,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GSC Water District GIS</title>
 
+    <link rel="icon" src="./resources/images/main_logo_transparent_220x220.png" type="image/x-icon">
+
     <link rel="stylesheet" href="./resources/ol/ol.css">
     <link rel="stylesheet" href="./resources/layerswitcher/ol-layerswitcher.css">
 
     <link rel="stylesheet" href="./style.css">
 </head>
 
+
 <body>  
 
-        <div class="main-container">
-            <div class="side-bar">
-                <img src="./resources/images/main_logo_transparent_220x220.png" alt="logo">
-                <div class="layers-list">
-                    <h1>Manhattan Layers</h1>
 
-                    <div class="items">
-                        <input type="checkbox" name="osm" id="osm" value="Open Street Map" checked onchange="toggleLayer(event);">     
-                        <label for="osm"> Open Street Map</label>
+    <div class="main-container">
+        <div class="side-bar">
+            <img src="./resources/images/main_logo_transparent_220x220.png" alt="logo">
+            <ul class="layers-list">
+                <h1>Manhattan Layers</h1>
+
+                <li class="items">
+                    <input type="checkbox" name="landmarks" id="landmarks" value="Manhattan Landmarks" checked
+                        onchange="toggleLayer(event);">
+                    <label for="landmarks"> Manhattan Landmarks </label>
+
+                </li>
+
+                <li class="items">
+                    <input type="checkbox" name="roads" id="roads" value="Manhattan Roads" checked
+                        onchange="toggleLayer(event);">
+                    <label for="roads"> Manhattan Roads </label>
+                </li>
+
+                <li class="items">
+                    <input type="checkbox" name="pois" id="pois" value="Manhattan POI" checked
+                        onchange="toggleLayer(event);">
+                    <label for="pois"> Manhattan Point of Interests </label>
+                </li>
+
+                <li class="items">
+                    <input type="checkbox" name="states" id="states" value="USA States" checked
+                        onchange="toggleLayer(event);">
+                    <label for="states"> USA States </label>
+                </li>
+            </ul>
+
+            <!-- Button Open/Close Modal -->
+            <button id="myBtn">Add Layer</button>
+
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Modal Header</h2>
                     </div>
 
-                    <div class="items">
-                        <input type="checkbox" name="landmarks" id="landmarks" value="Manhattan Landmarks" checked onchange="toggleLayer(event);">
-                        <label for="landmarks"> Manhattan Landmarks </label>
+                    <div class="modal-body">
+                        <form class="form-control">
 
+                            <label for="url">Title:</label>
+                            <input type="text" id="title" name="title"><br>
+
+                            <label for="url">URL:</label><br>
+                            <input type="text" id="url" name="url"><br>
+
+                            <label for="type">Type:</label><br>
+                            <div class="form-group">
+                                <select name="type" id="type">
+                                    <option value="wms">WMS</option>
+                                    <option value="csw">CSW</option>
+                                    <option value="wmts">WMTS</option>
+                                    <option value="tms">TMS</option>
+                                    <option value="wfs">WFS</option>
+                                </select>
+
+                                <input id="myBtn" type="submit" value="Save">
+                            </div>
+
+                        </form>
                     </div>
 
-                    <div class="items">
-                        <input type="checkbox" name="roads" id="roads" value="Manhattan Roads" checked onchange="toggleLayer(event);">
-                        <label for="roads"> Manhattan Roads </label>     
+                    <div class="modal-footer">
+                        <h3>Modal Footer</h3>
                     </div>
+                </div>
 
-                    <div class="items">
-                        <input type="checkbox" name="pois" id="pois" value="Manhattan POI" checked onchange="toggleLayer(event);">
-                        <label for="pois"> Manhattan Point of Interests </label>          
-                    </div>
-
-                    <div class="items">
-                        <input type="checkbox" name="states" id="states" value="USA States" checked onchange="toggleLayer(event);">
-                        <label for="states"> USA States </label>          
-                    </div>
-                                    
-                </div>        
             </div>
 
-            <div class="map-container">
-                <div id="map"></div>  
-            </div>
 
-            <div class="attyQueryDiv" id="attyQueryDiv">
+        </div>
+
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+
+          <div class="attyQueryDiv" id="attyQueryDiv">
                 <div class="headerDiv" id="headerDiv">
                     <label for="">Attribute Query</label>
                 </div><br>
@@ -76,17 +126,14 @@
                 <button type="button" id="attQryRun" class="attQryRun" onclick="attributeQuery()">Run</button>
     
             </div>
-    
-            
-            
-            
+      
+    </div>
 
-        </div>
 
-        
-        <script src="./resources/ol/ol.js"></script>
-        <script src="./resources/layerswitcher/ol-layerswitcher.js"></script>
-        <script src="./main.js"></script>
+
+    <script src="./resources/ol/ol.js"></script>
+    <script src="./resources/layerswitcher/ol-layerswitcher.js"></script>
+    <script src="./main.js"></script>
 </body>
 
 </html>

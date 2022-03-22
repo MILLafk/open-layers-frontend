@@ -289,6 +289,7 @@ function newaddGeoJsonToMap(url) {
         map.removeLayer(geojson);
     }
 
+
     var style = new ol.style.style({
         //fill: new ol.style.Fill({
             //color: 'rgba (0, 255, 255, 0.7)'
@@ -455,3 +456,15 @@ function newaddRowHandlers() {
     }
 }
 // end: attribute query
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+//Select JS
+
