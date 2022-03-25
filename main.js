@@ -136,7 +136,7 @@ window.onclick = function(event) {
 // start: attribute query
 
 var geojson;
-var featureOvarlay;
+var featureOverlay;
 
 var qryButton = document.createElement('button');
 qryButton.innerHTML = '<img src="resources/images/query.png">'
@@ -163,9 +163,9 @@ qryButton.addEventListener("click", () => {
             map.removeLayer(geojson);
         }
 
-        if (featureOvarlay) {
-            featureOvarlay.getSource().clear();
-            map.removeLayer(featureOvarlay);
+        if (featureOverlay) {
+            featureOverlay.getSource().clear();
+            map.removeLayer(featureOverlay);
         }
         document.getElementById("attyQueryDiv").style.display = "block";
 
@@ -181,9 +181,9 @@ qryButton.addEventListener("click", () => {
             map.removeLayer(geojson);
         }
 
-        if (featureOvarlay) {
-            featureOvarlay.getSource().clear();
-            map.removeLayer(featureOvarlay);
+        if (featureOverlay) {
+            featureOverlay.getSource().clear();
+            map.removeLayer(featureOverlay);
         }
     }
 })
@@ -194,7 +194,7 @@ function addMapLayerList() {
     $(document).ready(function () {
         $.ajax ({
             type: "GET",
-            url: "http://localhost:8080/geoserver/wfs?request=getCapabilities",
+            url: "http://localhost:8080/geoserver/wms?service=wms&version=1.1.1&request=GetCapabilities",
             datatype: "xml",
             success: function (xml) {
                 var select = $('#selectLayer');
@@ -220,7 +220,7 @@ $(function () {
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName=" + value_layer,
+                url: "http://localhost:8080/geoserver/wms?request=GetFeatureInfo&service=WMS&version=1.1.1&layers=" + value_layer,
                 dataType: "xml",
                 success: function (xml) {
 
@@ -272,9 +272,9 @@ $(function () {
     document.getElementById('attQryRun').onclick = function () {
         map.set("isLoading", 'YES');
 
-        if (featureOvarlay) {
-            featureOvarlay.getSource().clear();
-            map.removeLayer(featureOvarlay);
+        if (featureOverlay) {
+            featureOverlay.getSource().clear();
+            map.removeLayer(featureOverlay);
         }
 
         var layer =  document.getElementById("selectLayer");
@@ -301,7 +301,7 @@ $(function () {
             else {
                 value_txt = value_txt;
             }
-            var url = "https://localhost:8080/geoserver/GISSimplified/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
+            var url = "http://localhost:8080/geoserver/postgres/wms?service=WMS&version=1.1.0&request=GetMap&layers=postgres%3Astates_pg&bbox=-124.7314224243164%2C24.95596694946289%2C-66.9698486328125%2C49.37173843383789&width=768&height=330&srs=EPSG%3A4326&styles=&format=application/openlayers" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
             //console.log(url);
             newaddGeoJsonToMap(url);
             newpopulateQueryTable(url);
