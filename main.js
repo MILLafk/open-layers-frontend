@@ -107,7 +107,7 @@ map.addControl(mousePosition);
 // start: attribute query
 
 var geojson;
-var featureOvarlay;
+var featureOverlay;
 
 var qryButton = document.createElement('button');
 qryButton.innerHTML = '<img src="resources/images/query.png">'
@@ -134,9 +134,9 @@ qryButton.addEventListener("click", () => {
             map.removeLayer(geojson);
         }
 
-        if (featureOvarlay) {
-            featureOvarlay.getSource().clear();
-            map.removeLayer(featureOvarlay);
+        if (featureOverlay) {
+            featureOverlay.getSource().clear();
+            map.removeLayer(featureOverlay);
         }
         document.getElementById("attyQueryDiv").style.display = "block";
 
@@ -152,9 +152,9 @@ qryButton.addEventListener("click", () => {
             map.removeLayer(geojson);
         }
 
-        if (featureOvarlay) {
-            featureOvarlay.getSource().clear();
-            map.removeLayer(featureOvarlay);
+        if (featureOverlay) {
+            featureOverlay.getSource().clear();
+            map.removeLayer(featureOverlay);
         }
     }
 })
@@ -243,9 +243,9 @@ $(function () {
     document.getElementById('attQryRun').onclick = function () {
         map.set("isLoading", 'YES');
 
-        if (featureOvarlay) {
-            featureOvarlay.getSource().clear();
-            map.removeLayer(featureOvarlay);
+        if (featureOverlay) {
+            featureOverlay.getSource().clear();
+            map.removeLayer(featureOverlay);
         }
 
         var layer =  document.getElementById("selectLayer");
