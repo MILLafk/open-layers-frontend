@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,14 +16,18 @@
 </head>
 
 
-<body>  
+<body>
 
 
     <div class="main-container">
+        <!-- Sidebar with layers -->
         <div class="side-bar">
             <img src="./resources/images/main_logo_transparent_220x220.png" alt="logo">
-            <ul class="layers-list">
-                <h1>Manhattan Layers</h1>
+
+            <h1>Manhattan Layers</h1>
+            <!-- List of layers -->
+
+            <ul class="layers-list" id="layerUL">
 
                 <li class="items">
                     <input type="checkbox" name="landmarks" id="landmarks" value="Manhattan Landmarks" checked
@@ -49,8 +54,15 @@
                 </li>
             </ul>
 
+            <div class="qryButtonDiv">
+                <button id="qryButton" class="myButton"> 
+                    Services
+                </button>
+            </div>
+
+
             <!-- Button Open/Close Modal -->
-            <button id="myBtn">Add Layer</button>
+            <button class="myBtn" id="openModal">Add Layer</button>
 
             <!-- The Modal -->
             <div id="myModal" class="modal">
@@ -60,19 +72,20 @@
 
                     <div class="modal-header">
                         <span class="close">&times;</span>
-                        <h2>Modal Header</h2>
-                    </div>                                                                                                                                                                                                                                                                                                              
+                        <h2>Add Service</h2>
+                    </div>
 
                     <div class="modal-body">
-                        <form class="form-control">
+                        <form class="form-control" id="serviceForm">
 
                             <label for="url">Title:</label>
-                            <input type="text" id="title" name="title"><br>
+                            <input type="text" id="layerTitle" name="layerTitle"><br>
 
                             <label for="url">URL:</label><br>
-                            <input type="text" id="url" name="url"><br>
+                            <input type="text" id="layerUrl" name="layerUrl"><br>
 
-                            <label for="type">Type:</label><br>
+                            <label for="service">Select Service:</label><br>
+
                             <div class="form-group">
                                 <select name="type" id="type">
                                     <option value="wms">WMS</option>
@@ -82,14 +95,10 @@
                                     <option value="wfs">WFS</option>
                                 </select>
 
-                                <input id="myBtn" type="submit" value="Save">
+                                <button class="myBtn" id="addService" type="submit" onclick="addLi()"> Save </button>
                             </div>
 
                         </form>
-                    </div>
-
-                    <div class="modal-footer">
-                        <h3>Modal Footer</h3>
                     </div>
                 </div>
 
@@ -102,30 +111,30 @@
             <div id="map"></div>
         </div>
 
-          <div class="attyQueryDiv" id="attyQueryDiv">
-                <div class="headerDiv" id="headerDiv">
-                    <label for="">Attribute Query</label>
-                </div><br>
-                <label for="">Select Layer</label>
-                <select name="selectLayer" id="selectLayer">
-                </select><br><br>
-    
-                <label for="">Select Attribute</label>
-                <select name="selectAttribute" id="selectAttribute">
-                </select><br><br>
-    
-                <label for="">Select Operator</label>
-                <select name="selectOperator" id="selectOperator">
-                </select><br><br>
-    
-                <label for="">Enter Value</label>
-                <input type="text" name="enterValue" id="enterValue">
-                </select><br><br>
-    
-                <button type="button" id="attQryRun" class="attQryRun" onclick="attributeQuery()">Run</button>
-    
-            </div>
-      
+        <div class="attyQueryDiv" id="attyQueryDiv">
+            <div class="headerDiv" id="headerDiv">
+                <label for="">Attribute Query</label>
+            </div><br>
+            <label for="">Select Layer</label>
+            <select name="selectLayer" id="selectLayer">
+            </select><br><br>
+
+            <label for="">Select Attribute</label>
+            <select name="selectAttribute" id="selectAttribute">
+            </select><br><br>
+
+            <label for="">Select Operator</label>
+            <select name="selectOperator" id="selectOperator">
+            </select><br><br>
+
+            <label for="">Enter Value</label>
+            <input type="text" name="enterValue" id="enterValue">
+            </select><br><br>
+
+            <button type="button" id="attQryRun" class="attQryRun" onclick="attributeQuery()">Run</button>
+
+        </div>
+
     </div>
 
 
