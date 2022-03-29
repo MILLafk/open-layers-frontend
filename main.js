@@ -220,7 +220,7 @@ $(function () {
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/geoserver/wms?request=GetFeatureInfo&service=WMS&version=1.1.1&layers=" + value_layer,
+                url: "http://localhost:8080/geoserver/wms?request=GetFeatureInfo&service=WMS&version=1.1.1&layers=postgres%3Astates_pg&styles=&srs=EPSG%3A4326&format=image%2Fpng&bbox=-124.73142200000001%2C24.955967%2C-66.969849%2C49.371735&width=780&height=330&query_layers=topp%3Astates&info_format=text%2Fhtml&feature_count=50&x=353&y=145&exceptions=application%2Fvnd.ogc.se_xml" + value_layer,
                 dataType: "xml",
                 success: function (xml) {
 
@@ -246,7 +246,7 @@ $(function () {
         });
     }
     document.getElementById("selectAttribute").onchange = function () {
-        var operator = document.getElementById("selectorOperator");
+        var operator = document.getElementById("selectOperator");
         while (operator.options.length > 0) {
             operator.remove(0);
         }
@@ -301,7 +301,7 @@ $(function () {
             else {
                 value_txt = value_txt;
             }
-            var url = "http://localhost:8080/geoserver/postgres/wms?service=WMS&version=1.1.0&request=GetMap&layers=postgres%3Astates_pg&bbox=-124.7314224243164%2C24.95596694946289%2C-66.9698486328125%2C49.37173843383789&width=768&height=330&srs=EPSG%3A4326&styles=&format=application/openlayers" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
+            var url = "http://localhost:8080/geoserver/postgres/wms?service=WMS&version=1.1.0&request=GetMap&layers=postgres%3Astates_pg&bbox=-124.73142200000001%2C24.955967%2C-66.969849%2C49.371735&width=768&height=330&srs=EPSG%3A4326&styles=&format=application/openlayers" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
             //console.log(url);
             newaddGeoJsonToMap(url);
             newpopulateQueryTable(url);
