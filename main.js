@@ -1,8 +1,8 @@
 var mapView = new ol.View({
     //GenSan Coordinates
-    // center: ol.proj.fromLonLat([125.172 , 6.113]),
-    center: ol.proj.fromLonLat([-73.96511, 40.77919]),
-    zoom: 12
+    center: ol.proj.fromLonLat([125.222 , 6.123]),
+    // center: ol.proj.fromLonLat([-73.96511, 40.77919]),
+    zoom: 11
 });
 
 var map = new ol.Map({
@@ -28,6 +28,7 @@ var LMManhattan = new ol.layer.Tile({
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/tiger/wms',
         params: { 'LAYERS': 'tiger:poly_landmarks', 'TILED': true },
+        ratio: 1,
         serverType: 'geoserver',
         visible: true
     })
@@ -41,6 +42,7 @@ var RoadManhattan = new ol.layer.Tile({
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/tiger/wms',
         params: { 'LAYERS': 'tiger:tiger_roads', 'TILED': true },
+        ratio: 1,
         serverType: 'geoserver',
         visible: true
     })
@@ -54,6 +56,7 @@ var POIManhattan = new ol.layer.Tile({
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/tiger/wms',
         params: { 'LAYERS': 'tiger:poi', 'TILED': true },
+        ratio: 1,
         serverType: 'geoserver',
         visible: true
     })
@@ -67,6 +70,7 @@ var USAStates = new ol.layer.Tile({
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/topp/wms',
         params: { 'LAYERS': 'topp:states', 'TILED': true },
+        ratio: 1,
         serverType: 'geoserver',
         visible: true
     })
@@ -74,15 +78,28 @@ var USAStates = new ol.layer.Tile({
 
 map.addLayer(USAStates);
 
+var Apopong = new ol.layer.Tile({
+    title: "Apopong",
+    source: new ol.source.TileWMS({
+        url: 'http://localhost:8080/geoserver/wd_gis/wms',
+        params: { 'LAYERS': 'wd_gis:apopong', 'TILED': true },
+        ratio: 1,
+        serverType: 'geoserver',
+        visible: true
+    })
+})
+
+map.addLayer(Apopong);
+
 
 //Control Layers
-// var layerSwitcher = new ol.control.LayerSwitcher({
-//     activationMode: 'click',
-//     startActive: false,
-//     groupSelectStyle:'children'
-// });
+var layerSwitcher = new ol.control.LayerSwitcher({
+    activationMode: 'click',
+    startActive: false,
+    groupSelectStyle:'children'
+});
 
-// map.addControl(layerSwitcher);
+map.addControl(layerSwitcher);
 
 function toggleLayer(e) {
     var layerName = e.target.value;
@@ -98,7 +115,7 @@ function toggleLayer(e) {
 
 var mousePosition = new ol.control.MousePosition({
     className: 'mousePosition',
-    projection: 'ESPG:4326',
+    projection: 'ESPG:32651',
     coordinateFormat: function (coordinate) { return ol.coordinate.format(coordinate, '{y} , {x}', 6); }
 });
 
@@ -198,7 +215,7 @@ function addMapLayerList() {
     $(document).ready(function () {
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/geoserver/wms?request=getCapabilities",
+            url: "http://localhost:8080/geoserver/wfs?request=getCapabilities",
             datatype: "xml",
             success: function (xml) {
                 var select = $('#selectLayer');
@@ -224,7 +241,7 @@ $(function () {
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/geoserver/wms?service=WMS&request=DescribeFeatureType&version=1.1.0&typeName=" + value_layer,
+                url: "http://localhost:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName=" + value_layer,
                 dataType: "xml",
                 success: function (xml) {
 
@@ -305,8 +322,8 @@ $(function () {
             else {
                 value_txt = value_txt;
             }
-            var url = "https://localhost:8080/geoserver/GISSimplified/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
-            //console.log(url);
+            var url = "https://localhost:8080/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
+            console.log(url);
             newaddGeoJsonToMap(url);
             newpopulateQueryTable(url);
             settimeout(function () { newaddRowHandlers(url); }, 300);
@@ -511,4 +528,4 @@ function addLi() {
     document.getElementById('serviceForm').submit(function (event) {
         event.preventDefault();
     });
-} tfttftt
+}

@@ -52,10 +52,16 @@
                         onchange="toggleLayer(event);">
                     <label for="states"> USA States </label>
                 </li>
+
+                <li class="items">
+                    <input type="checkbox" name="apopong" id="apopong" value="Apopong" checked
+                        onchange="toggleLayer(event);">
+                    <label for="states"> Apopong </label>
+                </li>
             </ul>
 
             <div class="qryButtonDiv">
-                <button id="qryButton" class="myButton"> 
+                <button id="qryButton" class="myButton">
                     Services
                 </button>
             </div>
@@ -110,30 +116,31 @@
         <div class="map-container">
             <div id="map"></div>
         </div>
-
+        
         <div class="attyQueryDiv" id="attyQueryDiv">
             <div class="headerDiv" id="headerDiv">
                 <label for="">Attribute Query</label>
-            </div><br>
-            <label for="">Select Layer</label>
-            <select name="selectLayer" id="selectLayer">
-            </select><br><br>
+            </div>
+            <div class="attyFormContainer">
+                <label for="">Select Layer</label> <br>
+                <select name="selectLayer" id="selectLayer">
+                </select><br><br>
 
-            <label for="">Select Attribute</label>
-            <select name="selectAttribute" id="selectAttribute">
-            </select><br><br>
+                <label for="">Select Attribute</label> <br>
+                <select name="selectAttribute" id="selectAttribute">
+                </select><br><br>
 
-            <label for="">Select Operator</label>
-            <select name="selectOperator" id="selectOperator">
-            </select><br><br>
+                <label for="">Select Operator</label> <br>
+                <select name="selectOperator" id="selectOperator">
+                </select><br><br>
 
-            <label for="">Enter Value</label>
-            <input type="text" name="enterValue" id="enterValue">
-            </select><br><br>
+                <label for="">Enter Value</label> <br>
+                <input type="text" name="enterValue" id="enterValue">
 
-            <button type="button" id="attQryRun" class="attQryRun" onclick="attributeQuery()">Run</button>
-
+                <button type="button" id="attQryRun" class="attQryRun" onclick="attributeQuery()">Run</button>
+            </div>
         </div>
+        
 
     </div>
 
