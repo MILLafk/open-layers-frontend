@@ -87,7 +87,7 @@ var Apopong = new ol.layer.Tile({
         serverType: 'geoserver',
         visible: true
     })
-})
+});
 
 map.addLayer(Apopong);
 
