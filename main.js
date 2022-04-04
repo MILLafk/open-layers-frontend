@@ -145,7 +145,7 @@ qryButton.addEventListener("click", () => {
         addMapLayerList();
     } else {
         document.getElementById("attyQueryDiv").style.display = "none";
-        document.getElementById("attListDiv").style.display = "none";
+        // document.getElementById("attListDiv").style.display = "none";
 
         if (geojson) {
             geojson.getSource().clear();
@@ -217,7 +217,7 @@ $(function () {
         });
     }
     document.getElementById("selectAttribute").onchange = function () {
-        var operator = document.getElementById("selectorOperator");
+        var operator = document.getElementById("selectOperator");
         while (operator.options.length > 0) {
             operator.remove(0);
         }
@@ -254,7 +254,7 @@ $(function () {
         var txt = document.getElementById("enterValue");
 
         if (layer.options.selectedIndex == 0) {
-            alert("Select layer");
+            alert("Select Layer");
         } else if (attribute.options.selectedIndex == -1) {
             alert("Select Attribute");
         } else if (operator.options.selectedIndex <= 0) {
@@ -272,11 +272,11 @@ $(function () {
             else {
                 value_txt = value_txt;
             }
-            var url = "https://localhost:8080/geoserver/GISSimplified/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
+            var url = "http://localhost:8080/geoserver/gismapping/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
             //console.log(url);
             newaddGeoJsonToMap(url);
             newpopulateQueryTable(url);
-            settimeout(function () { newaddRowHandlers(url); }, 300);
+            setTimeout(function () { newaddRowHandlers(url); }, 300);
             map.set("isLoading", 'NO');
         }
     }
