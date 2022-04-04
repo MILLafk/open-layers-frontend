@@ -198,7 +198,7 @@ function addMapLayerList() {
     $(document).ready(function () {
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/geoserver/wms?request=getCapabilities",
+            url: "http://localhost:8080/geoserver/wfs?request=getCapabilities",
             datatype: "xml",
             success: function (xml) {
                 var select = $('#selectLayer');
@@ -224,7 +224,7 @@ $(function () {
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/geoserver/wms?service=WMS&request=DescribeFeatureType&version=1.1.0&typeName=" + value_layer,
+                url: "http://localhost:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName=" + value_layer,
                 dataType: "xml",
                 success: function (xml) {
 
@@ -305,7 +305,7 @@ $(function () {
             else {
                 value_txt = value_txt;
             }
-            var url = "http://localhost:8080/geoserver/postgres/wms?service=WMS&version=1.1.0&request=GetMap&layers=postgres%3Astates_pg&bbox=-124.73142200000001%2C24.955967%2C-66.969849%2C49.371735&width=768&height=330&srs=EPSG%3A4326&styles=&format=application/openlayers" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
+            var url = "http://localhost:8080/geoserver/gismapping/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
             //console.log(url);
             newaddGeoJsonToMap(url);
             newpopulateQueryTable(url);
