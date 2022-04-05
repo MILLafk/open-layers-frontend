@@ -142,10 +142,10 @@ qryButton.addEventListener("click", () => {
 
         bolIdentify = false;
 
-        addMapLayerList();
-    } else {
+        addMapLayerList(); 
+    } else { 
         document.getElementById("attyQueryDiv").style.display = "none";
-        // document.getElementById("attListDiv").style.display = "none";
+        document.getElementById("attListDiv").style.display = "none";
 
         if (geojson) {
             geojson.getSource().clear();
@@ -207,7 +207,7 @@ $(function () {
                             var type = $(this).attr('type');
                             //alert(type);
                             if (value != 'geom' && value != 'the_geom') {
-                                select.append ("<option class='ddindent' value='"+ value + "'>" + value + "</option>");
+                                select.append ("<option class='ddindent' value='"+ type + "'>" + value + "</option>");
                             }
                         });
                     });
@@ -272,7 +272,7 @@ $(function () {
             else {
                 value_txt = value_txt;
             }
-            var url = "http://localhost:8080/geoserver/gismapping/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
+            var url = "http://localhost:8080/geoserver/gismapping/ows?service=WFS&version=1.1.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
             //console.log(url);
             newaddGeoJsonToMap(url);
             newpopulateQueryTable(url);
@@ -289,7 +289,7 @@ function newaddGeoJsonToMap(url) {
         map.removeLayer(geojson);
     }
 
-    var style = new ol.style.style({
+    var style = new ol.style.Style({
         //fill: new ol.style.Fill({
             //color: 'rgba (0, 255, 255, 0.7)'
         //});
@@ -314,7 +314,7 @@ function newaddGeoJsonToMap(url) {
     });
 
     geojson.getSource().on('addfeature', function () {
-        map.getview().fit(
+        map.getView().fit(
             geojson.getSource().getExtent(),
             { duration: 1590, size: map.getSize(), maxZoom: 21 }
         );
@@ -422,7 +422,7 @@ function newaddRowHandlers() {
                 featureOverlay.getSource().clear();
 
                 $(function () {
-                    $("attQryTable td").each(function () {
+                    $("#attQryTable td").each(function () {
                         $(this).parent("tr").css("background-color", "white");
                     });
                 });
