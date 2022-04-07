@@ -76,15 +76,28 @@ var USAStates = new ol.layer.Tile({
 
 map.addLayer(USAStates);
 
+var Apopong = new ol.layer.Tile({
+    title: "Apopong",
+    source: new ol.source.TileWMS({
+        url: 'http://localhost:8080/geoserver/wd_gis/wms',
+        params: { 'LAYERS': 'wd_gis:apopong', 'TILED': true },
+        ratio: 1,
+        serverType: 'geoserver',
+        visible: true
+    })
+});
+
+map.addLayer(Apopong);
+
 
 //Control Layers
-// var layerSwitcher = new ol.control.LayerSwitcher({
-//     activationMode: 'click',
-//     startActive: false,
-//     groupSelectStyle:'children'
-// });
+var layerSwitcher = new ol.control.LayerSwitcher({
+    activationMode: 'click',
+    startActive: false,
+    groupSelectStyle:'children'
+});
 
-// map.addControl(layerSwitcher);
+map.addControl(layerSwitcher);
 
 function toggleLayer(e) {
     var layerName = e.target.value;
@@ -106,19 +119,42 @@ var mousePosition = new ol.control.MousePosition({
 
 map.addControl(mousePosition);
 
+
+//Modal
+
+// Get the modal
+var modal = document.getElementById("myModal");
+// Get the button that opens the modal
+var btn = document.getElementById("openModal");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function () {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
 // start: attribute query
 
 var geojson;
 var featureOverlay;
 
-var qryButton = document.createElement('button');
-qryButton.innerHTML = '<img src="resources/images/query.png">'
-qryButton.className = 'myButton';
-qryButton.id = 'qryButton';
 
-var qryElement = document.createElement('div');
-qryElement.className = 'myButtonDiv';
-qryElement.appendChild(qryButton);
+var qryButton = document.getElementById('qryButton');
+var qryElement =document.getElementById('qryButtonDiv');
 
 var qryControl = new ol.control.Control({
     element: qryElement
@@ -131,7 +167,6 @@ qryButton.addEventListener("click", () => {
     qryFlag = !qryFlag;
     document.getElementById("map").style.cursor = "default";
     if (qryFlag) {
-
         if (geojson) {
             geojson.getSource().clear();
             map.removeLayer(geojson);
@@ -145,8 +180,8 @@ qryButton.addEventListener("click", () => {
 
         bolIdentify = false;
 
-        addMapLayerList();
-    } else {
+        addMapLayerList(); 
+    } else { 
         document.getElementById("attyQueryDiv").style.display = "none";
         document.getElementById("attListDiv").style.display = "none";
 
@@ -162,7 +197,9 @@ qryButton.addEventListener("click", () => {
     }
 })
 
+
 map.addControl(qryControl);
+
 
 function addMapLayerList() {
     $(document).ready(function () {
@@ -210,7 +247,9 @@ $(function () {
                             var type = $(this).attr('type');
                             //alert(type);
                             if (value != 'geom' && value != 'the_geom') {
+
                                 select.append("<option class='ddindent' value='" + type + "'>" + value + "</option>");
+
                             }
                         });
                     });
@@ -275,11 +314,19 @@ $(function () {
             else {
                 value_txt = value_txt;
             }
+
             var url = "http://localhost:8080/geoserver/gismapping/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER=" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
 
             newaddGeoJsonToMap(url);
             newpopulateQueryTable(url);
             setTimeout(function () { newaddRowHandlers(url); }, 10000);
+
+            //console.log(url);
+
+            newaddGeoJsonToMap(url);
+            newpopulateQueryTable(url);
+            setTimeout(function () { newaddRowHandlers(url); }, 300);
+
             map.set("isLoading", 'NO');
         }
     }
@@ -294,7 +341,9 @@ function newaddGeoJsonToMap(url) {
         map.removeLayer(geojson);
     }
 
+
     var style = new ol.style.Style({
+
         //fill: new ol.style.Fill({
         //color: 'rgba (0, 255, 255, 0.7)'
         //});
@@ -462,3 +511,26 @@ function newaddRowHandlers() {
     }
 }
 // end: attribute query
+
+
+//Add Layer To List of Layers 
+
+function addLi() {
+
+    var title = document.getElementById('layerTitle').value,
+        url = document.getElementById('layerUrl').value;
+
+    var listNode = document.getElementById('layerUL');
+    var liNode = document.createElement("LI");
+
+    var titleNode = document.createTextNode(title),
+        urlNode = document.createTextNode(url);
+
+    liNode.appendChild(titleNode);
+    liNode.appendChild(urlNode);
+    listNode.appendChild(liNode);
+
+    document.getElementById('serviceForm').submit(function (event) {
+        event.preventDefault();
+    });
+}

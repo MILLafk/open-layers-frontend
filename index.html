@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,50 +10,113 @@
     <link rel="stylesheet" href="http://localhost:8080/open-layers-frontend/resources/ol/ol.css">
     <link rel="stylesheet" href="http://localhost:8080/open-layers-frontend/resources/layerswitcher/ol-layerswitcher.css">
     <link rel="stylesheet" href="http://localhost:8080/open-layers-frontend/style.css">
+<<<<<<< HEAD
     <link rel="icon" src="./resources/images/main_logo_transparent_220x220.png" type="image/x-icon">
+=======
+
+    <link rel="icon" src="./resources/images/main_logo_transparent_220x220.png" type="image/x-icon">
+
+
+    
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
 </head>
 
-<body>  
 
-        <div class="main-container">
-            <div class="side-bar">
-                <img src="./resources/images/main_logo_transparent_220x220.png" alt="logo">
-                <div class="layers-list">
-                    <h1>Manhattan Layers</h1>
+<body>
 
-                    <div class="items">
-                        <input type="checkbox" name="osm" id="osm" value="Open Street Map" checked onchange="toggleLayer(event);">     
-                        <label for="osm"> Open Street Map</label>
-                    </div>
 
-                    <div class="items">
-                        <input type="checkbox" name="landmarks" id="landmarks" value="Manhattan Landmarks" checked onchange="toggleLayer(event);">
-                        <label for="landmarks"> Manhattan Landmarks </label>
+    <div class="main-container">
+        <!-- Sidebar with layers -->
+        <div class="side-bar">
+            <img src="./resources/images/main_logo_transparent_220x220.png" alt="logo">
 
-                    </div>
+            <h1>Manhattan Layers</h1>
+            <!-- List of layers -->
 
-                    <div class="items">
-                        <input type="checkbox" name="roads" id="roads" value="Manhattan Roads" checked onchange="toggleLayer(event);">
-                        <label for="roads"> Manhattan Roads </label>     
-                    </div>
+            <ul class="layers-list" id="layerUL">
 
-                    <div class="items">
-                        <input type="checkbox" name="pois" id="pois" value="Manhattan POI" checked onchange="toggleLayer(event);">
-                        <label for="pois"> Manhattan Point of Interests </label>          
-                    </div>
+                <li class="items">
+                    <input type="checkbox" name="landmarks" id="landmarks" value="Manhattan Landmarks" checked
+                        onchange="toggleLayer(event);">
+                    <label for="landmarks"> Manhattan Landmarks </label>
+                </li>
 
-                    <div class="items">
-                        <input type="checkbox" name="states" id="states" value="USA States" checked onchange="toggleLayer(event);">
-                        <label for="states"> USA States </label>          
-                    </div>
-                                    
-                </div>        
+                <li class="items">
+                    <input type="checkbox" name="roads" id="roads" value="Manhattan Roads" checked
+                        onchange="toggleLayer(event);">
+                    <label for="roads"> Manhattan Roads </label>
+                </li>
+
+                <li class="items">
+                    <input type="checkbox" name="pois" id="pois" value="Manhattan POI" checked
+                        onchange="toggleLayer(event);">
+                    <label for="pois"> Manhattan Point of Interests </label>
+                </li>
+
+                <li class="items">
+                    <input type="checkbox" name="states" id="states" value="USA States" checked
+                        onchange="toggleLayer(event);">
+                    <label for="states"> USA States </label>
+                </li>
+
+                <li class="items">
+                    <input type="checkbox" name="apopong" id="apopong" value="Apopong" checked
+                        onchange="toggleLayer(event);">
+                    <label for="apopong"> Apopong </label>
+                </li>
+            </ul>
+
+            <div class="qryButtonDiv">
+                <button id="qryButton" class="myButton">
+                    Services
+                </button>
             </div>
 
-            <div class="map-container">
-                <div id="map"></div>  
+
+            <!-- Button Open/Close Modal -->
+            <button class="myBtn" id="openModal">Add Layer</button>
+
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Add Service</h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <form class="form-control" id="serviceForm">
+
+                            <label for="url">Title:</label>
+                            <input type="text" id="layerTitle" name="layerTitle"><br>
+
+                            <label for="url">URL:</label><br>
+                            <input type="text" id="layerUrl" name="layerUrl"><br>
+
+                            <label for="service">Select Service:</label><br>
+
+                            <div class="form-group">
+                                <select name="type" id="type">
+                                    <option value="wms">WMS</option>
+                                    <option value="csw">CSW</option>
+                                    <option value="wmts">WMTS</option>
+                                    <option value="tms">TMS</option>
+                                    <option value="wfs">WFS</option>
+                                </select>
+
+                                <button class="myBtn" id="addService" type="submit" onclick="addLi()"> Save </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
             </div>
 
+<<<<<<< HEAD
             <div class="attyQueryDiv" id="attyQueryDiv">
                 <div class="headerDiv" id="headerDiv">
                     <label for="">Attribute Query</label>
@@ -68,6 +132,7 @@
                 <label for="">Select Operator</label>
                 <select name="selectOperator" id="selectOperator">
                 </select><br><br>
+               
     
                 <label for="">Enter Value</label>
                 <input type="text" name="enterValue" id="enterValue">
@@ -76,6 +141,15 @@
                 <button type="button" id="attQryRun" class="attQryRun" onclick="attributeQuery()">Run</button>
     
             </div>
+<<<<<<< HEAD
+=======
+    
+            
+            
+            
+=======
+>>>>>>> 2755d1a242c8c1d20b20db3ae98ee782efe48871
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
 
             <div class="attListDiv" id="attListDiv">
                 
@@ -87,12 +161,52 @@
                 </table>
             </div>
         </div>
+<<<<<<< HEAD
         
         <script src="http://localhost:8080/open-layers-frontend/resources/ol/ol.js"></script>
         <script src="http://localhost:8080/open-layers-frontend/resources/layerswitcher/ol-layerswitcher.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="http://localhost:8080/open-layers-frontend/main.js"></script>
+=======
+
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+        
+        <div class="attyQueryDiv" id="attyQueryDiv">
+            <div class="headerDiv" id="headerDiv">
+                <label for="">Attribute Query</label>
+            </div>
+            <div class="attyFormContainer">
+                <label for="">Select Layer</label> <br>
+                <select name="selectLayer" id="selectLayer">
+                </select><br><br>
+
+                <label for="">Select Attribute</label> <br>
+                <select name="selectAttribute" id="selectAttribute">
+                </select><br><br>
+
+                <label for="">Select Operator</label> <br>
+                <select name="selectOperator" id="selectOperator">
+                </select><br><br>
+
+                <label for="">Enter Value</label> <br>
+                <input type="text" name="enterValue" id="enterValue">
+
+                <button type="button" id="attQryRun" class="attQryRun" onclick="attributeQuery()">Run</button>
+            </div>
+        </div>
+        
+        <script src="http://localhost:8080/open-layers-frontend/resources/ol/ol.js"></script>
+        <script src="http://localhost:8080/open-layers-frontend/resources/layerswitcher/ol-layerswitcher.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="http://localhost:8080/open-layers-frontend/main.js"></script>
+
+
+    </div>
+
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
 </body>
 
 </html>
