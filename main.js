@@ -1,11 +1,13 @@
-var mapView = new ol.View ({
+var mapView = new ol.View({
     //GenSan Coordinates
-    // center: ol.proj.fromLonLat([125.172 , 6.113]),
-    center: ol.proj.fromLonLat([-73.96511 , 40.77919]),
-    zoom: 12
+    //SRS 4326
+    center: ol.proj.fromLonLat([125.172, 6.113]),    
+
+    // center: ol.proj.fromLonLat([-73.96511 , 40.77919]),
+    zoom: 12    
 });
 
-var map = new ol.Map ({
+var map = new ol.Map({
     target: 'map',
     view: mapView
 });
@@ -27,7 +29,7 @@ var LMManhattan = new ol.layer.Tile({
     title: "Manhattan Landmarks",
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/tiger/wms',
-        params: {'LAYERS': 'tiger:poly_landmarks', 'TILED' : true},
+        params: { 'LAYERS': 'tiger:poly_landmarks', 'TILED': true },
         serverType: 'geoserver',
         visible: true
     })
@@ -40,7 +42,7 @@ var RoadManhattan = new ol.layer.Tile({
     title: "Manhattan Roads",
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/tiger/wms',
-        params: {'LAYERS': 'tiger:tiger_roads', 'TILED' : true},
+        params: { 'LAYERS': 'tiger:tiger_roads', 'TILED': true },
         serverType: 'geoserver',
         visible: true
     })
@@ -53,7 +55,7 @@ var POIManhattan = new ol.layer.Tile({
     title: "Manhattan POI",
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/tiger/wms',
-        params: {'LAYERS': 'tiger:poi', 'TILED' : true},
+        params: { 'LAYERS': 'tiger:poi', 'TILED': true },
         serverType: 'geoserver',
         visible: true
     })
@@ -66,7 +68,7 @@ var USAStates = new ol.layer.Tile({
     title: "USA States",
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/topp/wms',
-        params: {'LAYERS': 'topp:states', 'TILED' : true},
+        params: { 'LAYERS': 'topp:states', 'TILED': true },
         serverType: 'geoserver',
         visible: true
     })
@@ -89,7 +91,7 @@ function toggleLayer(e) {
     var checkedStatus = e.target.checked;
     var layerList = map.getLayers();
 
-    layerList.forEach(function(element){
+    layerList.forEach(function (element) {
         if (layerName == element.get('title'))
             element.setVisible(checkedStatus)
     });
@@ -99,7 +101,7 @@ function toggleLayer(e) {
 var mousePosition = new ol.control.MousePosition({
     className: 'mousePosition',
     projection: 'ESPG:4326',
-    coordinateFormat: function(coordinate) { return ol.coordinate.format(coordinate, '{y} , {x}', 6 ); }
+    coordinateFormat: function (coordinate) { return ol.coordinate.format(coordinate, '{y} , {x}', 6); }
 });
 
 map.addControl(mousePosition);
@@ -107,7 +109,7 @@ map.addControl(mousePosition);
 // start: attribute query
 
 var geojson;
-var featureOvarlay;
+var featureOverlay;
 
 var qryButton = document.createElement('button');
 qryButton.innerHTML = '<img src="resources/images/query.png">'
@@ -118,7 +120,7 @@ var qryElement = document.createElement('div');
 qryElement.className = 'myButtonDiv';
 qryElement.appendChild(qryButton);
 
-var qryControl = new ol.control.Control ({
+var qryControl = new ol.control.Control({
     element: qryElement
 })
 
@@ -129,14 +131,15 @@ qryButton.addEventListener("click", () => {
     qryFlag = !qryFlag;
     document.getElementById("map").style.cursor = "default";
     if (qryFlag) {
-        if (geojson){
+
+        if (geojson) {
             geojson.getSource().clear();
             map.removeLayer(geojson);
         }
 
-        if (featureOvarlay) {
-            featureOvarlay.getSource().clear();
-            map.removeLayer(featureOvarlay);
+        if (featureOverlay) {
+            featureOverlay.getSource().clear();
+            map.removeLayer(featureOverlay);
         }
         document.getElementById("attyQueryDiv").style.display = "block";
 
@@ -152,9 +155,9 @@ qryButton.addEventListener("click", () => {
             map.removeLayer(geojson);
         }
 
-        if (featureOvarlay) {
-            featureOvarlay.getSource().clear();
-            map.removeLayer(featureOvarlay);
+        if (featureOverlay) {
+            featureOverlay.getSource().clear();
+            map.removeLayer(featureOverlay);
         }
     }
 })
@@ -163,7 +166,7 @@ map.addControl(qryControl);
 
 function addMapLayerList() {
     $(document).ready(function () {
-        $.ajax ({
+        $.ajax({
             type: "GET",
             url: "http://localhost:8080/geoserver/wfs?request=getCapabilities",
             datatype: "xml",
@@ -173,7 +176,7 @@ function addMapLayerList() {
                 $(xml).find('FeatureType').each(function () {
                     $(this).find('Name').each(function () {
                         var value = $(this).text();
-                        select.append("<option class='ddindent' value='"+ value + "'>" + value + "</option>");
+                        select.append("<option class='ddindent' value='" + value + "'>" + value + "</option>");
                     });
                 });
             }
@@ -207,7 +210,7 @@ $(function () {
                             var type = $(this).attr('type');
                             //alert(type);
                             if (value != 'geom' && value != 'the_geom') {
-                                select.append ("<option class='ddindent' value='"+ value + "'>" + value + "</option>");
+                                select.append("<option class='ddindent' value='" + type + "'>" + value + "</option>");
                             }
                         });
                     });
@@ -217,17 +220,17 @@ $(function () {
         });
     }
     document.getElementById("selectAttribute").onchange = function () {
-        var operator = document.getElementById("selectorOperator");
+        var operator = document.getElementById("selectOperator");
         while (operator.options.length > 0) {
             operator.remove(0);
         }
-        
+
         var value_type = $(this).val();
         //alert(value_type);
         var value_attribute = $('#selectAttribute option:selected').text();
         operator.options[0] = new Option('Select operator', "");
 
-        if (value_type == 'xsd:short' || value_type == 'xsd:int' || value_type == 'xsd:double' ) {
+        if (value_type == 'xsd:short' || value_type == 'xsd:int' || value_type == 'xsd:double') {
             var operator1 = document.getElementById("selectOperator");
             operator1.options[1] = new Option('Greater than', '>');
             operator1.options[2] = new Option('Less than', '<');
@@ -242,25 +245,25 @@ $(function () {
 
     document.getElementById('attQryRun').onclick = function () {
         map.set("isLoading", 'YES');
-
-        if (featureOvarlay) {
-            featureOvarlay.getSource().clear();
-            map.removeLayer(featureOvarlay);
+        
+        if (featureOverlay) {
+            featureOverlay.getSource().clear();
+            map.removeLayer(featureOverlay);
         }
 
-        var layer =  document.getElementById("selectLayer");
+        var layer = document.getElementById("selectLayer");
         var attribute = document.getElementById("selectAttribute");
         var operator = document.getElementById("selectOperator");
         var txt = document.getElementById("enterValue");
 
         if (layer.options.selectedIndex == 0) {
-            alert("Select layer");
+            alert("Select Layer");
         } else if (attribute.options.selectedIndex == -1) {
             alert("Select Attribute");
         } else if (operator.options.selectedIndex <= 0) {
             alert("Select Operator");
         } else if (txt.value.length <= 0) {
-            alert ("Enter Value");
+            alert("Enter Value");
         } else {
             var value_layer = layer.options[layer.selectedIndex].value;
             var value_attribute = attribute.options[attribute.selectedIndex].text;
@@ -272,26 +275,28 @@ $(function () {
             else {
                 value_txt = value_txt;
             }
-            var url = "https://localhost:8080/geoserver/GISSimplified/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
-            //console.log(url);
+            var url = "http://localhost:8080/geoserver/gismapping/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER=" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
+
             newaddGeoJsonToMap(url);
             newpopulateQueryTable(url);
-            settimeout(function () { newaddRowHandlers(url); }, 300);
+            setTimeout(function () { newaddRowHandlers(url); }, 10000);
             map.set("isLoading", 'NO');
         }
     }
 });
 
 function newaddGeoJsonToMap(url) {
-
+    // console.log(geojson);
+    // console.log(featureOverlay);
+    console.log(url);
     if (geojson) {
         geojson.getSource().clear();
         map.removeLayer(geojson);
     }
 
-    var style = new ol.style.style({
+    var style = new ol.style.Style({
         //fill: new ol.style.Fill({
-            //color: 'rgba (0, 255, 255, 0.7)'
+        //color: 'rgba (0, 255, 255, 0.7)'
         //});
         stroke: new ol.style.Stroke({
             color: '#FFFF00',
@@ -313,16 +318,18 @@ function newaddGeoJsonToMap(url) {
         style: style,
     });
 
+    
     geojson.getSource().on('addfeature', function () {
-        map.getview().fit(
+        map.getView().fit(
             geojson.getSource().getExtent(),
             { duration: 1590, size: map.getSize(), maxZoom: 21 }
         );
     });
+    
     map.addLayer(geojson);
 };
 
-function newpopulateQueryTable (url) {
+function newpopulateQueryTable(url) {
     if (typeof attributePanel !== 'undefined') {
         if (attributePanel.parentElement !== null) {
             attributePanel.close();
@@ -332,11 +339,11 @@ function newpopulateQueryTable (url) {
     $.getJSON(url, function (data) {
         var col = [];
         col.push('id');
-        for(var i = 0; i< data.features.length; i++) {
+        for (var i = 0; i < data.features.length; i++) {
 
             for (var key in data.features[i].properties) {
 
-                if (col.idexOf(key) === -1) {
+                if (col.indexOf(key) === -1) {
                     col.push(key);
                 }
             }
@@ -344,7 +351,7 @@ function newpopulateQueryTable (url) {
 
         var table = document.createElement("table");
 
-        table .setAttribute("class", "table table-bordered table-hover table-condensed");
+        table.setAttribute("class", "table table-bordered table-hover table-condensed");
         table.setAttribute("id", "attQryTable");
         //CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 
@@ -357,11 +364,11 @@ function newpopulateQueryTable (url) {
         }
 
         //ADD JSON DATA TO THE TABLE AS ROWS
-        for (var i=0; i < data.features.length; i++) {
+        for (var i = 0; i < data.features.length; i++) {
             tr = table.insertRow(-1);
-            for (var j=0; j < col.length; j++) {
-                var tabCell= tr.insertCell(-1);
-                if (j==0) { tabCell.innerHTML = data.features[i]['id']; }
+            for (var j = 0; j < col.length; j++) {
+                var tabCell = tr.insertCell(-1);
+                if (j == 0) { tabCell.innerHTML = data.features[i]['id']; }
                 else {
                     tabCell.innerHTML = data.features[i].properties[col[j]];
                 }
@@ -382,10 +389,10 @@ function newpopulateQueryTable (url) {
     });
 
     var highlightStyle = new ol.style.Style({
-        fill: new ol.style.Fill ({
+        fill: new ol.style.Fill({
             color: 'rgba (255, 0, 255, 0.3)',
         }),
-        stroke: new ol.style.Stroke ({
+        stroke: new ol.style.Stroke({
             color: '#FF00FF',
             width: 3,
         }),
@@ -397,7 +404,7 @@ function newpopulateQueryTable (url) {
         })
     });
 
-    var featureOverlay  = new ol.layer.Vector({
+    var featureOverlay = new ol.layer.Vector({
         source: new ol.source.Vector(),
         map: map,
         style: highlightStyle
@@ -409,9 +416,9 @@ function newaddRowHandlers() {
     var rows = document.getElementById("attQryTable").rows;
     var heads = table.getElementsByTagName('th');
     var col_no;
-    for (var i=0; i < heads.length; i++) {
+    for (var i = 0; i < heads.length; i++) {
         //take each cell
-        var head = heads [i];
+        var head = heads[i];
         if (head.innerHTML == 'id') {
             col_no = i + 1;
         }
@@ -422,7 +429,7 @@ function newaddRowHandlers() {
                 featureOverlay.getSource().clear();
 
                 $(function () {
-                    $("attQryTable td").each(function () {
+                    $("#attQryTable td").each(function () {
                         $(this).parent("tr").css("background-color", "white");
                     });
                 });
@@ -439,8 +446,8 @@ function newaddRowHandlers() {
                 var features = geojson.getSource().getFeatures();
 
                 for (i = 0; i < features.length; i++) {
-                    if (features[i].getID() == id) {
-                        featureOverlay.getSource().addFeature(features[i]); 
+                    if (features[i].getId() == id) {
+                        featureOverlay.getSource().addFeature(features[i]);
 
                         featureOverlay.getSource().on('addfeature', function () {
                             map.getView().fit(
