@@ -1,10 +1,16 @@
 var mapView = new ol.View({
     //GenSan Coordinates
+<<<<<<< HEAD
     //SRS 4326
     center: ol.proj.fromLonLat([125.172, 6.113]),    
 
     // center: ol.proj.fromLonLat([-73.96511 , 40.77919]),
     zoom: 12    
+=======
+    center: ol.proj.fromLonLat([125.222 , 6.123]),
+    // center: ol.proj.fromLonLat([-73.96511, 40.77919]),
+    zoom: 11
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
 });
 
 var map = new ol.Map({
@@ -30,6 +36,10 @@ var LMManhattan = new ol.layer.Tile({
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/tiger/wms',
         params: { 'LAYERS': 'tiger:poly_landmarks', 'TILED': true },
+<<<<<<< HEAD
+=======
+        ratio: 1,
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
         serverType: 'geoserver',
         visible: true
     })
@@ -43,6 +53,10 @@ var RoadManhattan = new ol.layer.Tile({
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/tiger/wms',
         params: { 'LAYERS': 'tiger:tiger_roads', 'TILED': true },
+<<<<<<< HEAD
+=======
+        ratio: 1,
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
         serverType: 'geoserver',
         visible: true
     })
@@ -56,6 +70,10 @@ var POIManhattan = new ol.layer.Tile({
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/tiger/wms',
         params: { 'LAYERS': 'tiger:poi', 'TILED': true },
+<<<<<<< HEAD
+=======
+        ratio: 1,
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
         serverType: 'geoserver',
         visible: true
     })
@@ -69,6 +87,10 @@ var USAStates = new ol.layer.Tile({
     source: new ol.source.TileWMS({
         url: 'http://localhost:8080/geoserver/topp/wms',
         params: { 'LAYERS': 'topp:states', 'TILED': true },
+<<<<<<< HEAD
+=======
+        ratio: 1,
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
         serverType: 'geoserver',
         visible: true
     })
@@ -76,15 +98,28 @@ var USAStates = new ol.layer.Tile({
 
 map.addLayer(USAStates);
 
+var Apopong = new ol.layer.Tile({
+    title: "Apopong",
+    source: new ol.source.TileWMS({
+        url: 'http://localhost:8080/geoserver/wd_gis/wms',
+        params: { 'LAYERS': 'wd_gis:apopong', 'TILED': true },
+        ratio: 1,
+        serverType: 'geoserver',
+        visible: true
+    })
+});
+
+map.addLayer(Apopong);
+
 
 //Control Layers
-// var layerSwitcher = new ol.control.LayerSwitcher({
-//     activationMode: 'click',
-//     startActive: false,
-//     groupSelectStyle:'children'
-// });
+var layerSwitcher = new ol.control.LayerSwitcher({
+    activationMode: 'click',
+    startActive: false,
+    groupSelectStyle:'children'
+});
 
-// map.addControl(layerSwitcher);
+map.addControl(layerSwitcher);
 
 function toggleLayer(e) {
     var layerName = e.target.value;
@@ -100,26 +135,66 @@ function toggleLayer(e) {
 
 var mousePosition = new ol.control.MousePosition({
     className: 'mousePosition',
+<<<<<<< HEAD
     projection: 'ESPG:4326',
+=======
+    projection: 'ESPG:32651',
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
     coordinateFormat: function (coordinate) { return ol.coordinate.format(coordinate, '{y} , {x}', 6); }
 });
 
 map.addControl(mousePosition);
+
+
+//Modal
+
+// Get the modal
+var modal = document.getElementById("myModal");
+// Get the button that opens the modal
+var btn = document.getElementById("openModal");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function () {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
 
 // start: attribute query
 
 var geojson;
 var featureOverlay;
 
-var qryButton = document.createElement('button');
-qryButton.innerHTML = '<img src="resources/images/query.png">'
-qryButton.className = 'myButton';
-qryButton.id = 'qryButton';
 
-var qryElement = document.createElement('div');
-qryElement.className = 'myButtonDiv';
-qryElement.appendChild(qryButton);
+var qryButton = document.getElementById('qryButton');
+var qryElement =document.getElementById('qryButtonDiv');
 
+<<<<<<< HEAD
+=======
+
+// var qryButton = document.createElement('button');
+// qryButton.innerHTML = '<img src="resources/images/query.png">'
+// qryButton.className = 'myButton';
+// qryButton.id = 'qryButton';
+
+// var qryElement = document.createElement('div');
+// qryElement.className = 'myButtonDiv';
+// qryElement.appendChild(qryButton);
+
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
 var qryControl = new ol.control.Control({
     element: qryElement
 })
@@ -131,7 +206,10 @@ qryButton.addEventListener("click", () => {
     qryFlag = !qryFlag;
     document.getElementById("map").style.cursor = "default";
     if (qryFlag) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
         if (geojson) {
             geojson.getSource().clear();
             map.removeLayer(geojson);
@@ -145,8 +223,8 @@ qryButton.addEventListener("click", () => {
 
         bolIdentify = false;
 
-        addMapLayerList();
-    } else {
+        addMapLayerList(); 
+    } else { 
         document.getElementById("attyQueryDiv").style.display = "none";
         document.getElementById("attListDiv").style.display = "none";
 
@@ -162,7 +240,9 @@ qryButton.addEventListener("click", () => {
     }
 })
 
+
 map.addControl(qryControl);
+
 
 function addMapLayerList() {
     $(document).ready(function () {
@@ -210,7 +290,15 @@ $(function () {
                             var type = $(this).attr('type');
                             //alert(type);
                             if (value != 'geom' && value != 'the_geom') {
+<<<<<<< HEAD
                                 select.append("<option class='ddindent' value='" + type + "'>" + value + "</option>");
+=======
+<<<<<<< HEAD
+                                select.append ("<option class='ddindent' value='"+ type + "'>" + value + "</option>");
+=======
+                                select.append("<option class='ddindent' value='" + value + "'>" + value + "</option>");
+>>>>>>> 2755d1a242c8c1d20b20db3ae98ee782efe48871
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
                             }
                         });
                     });
@@ -245,7 +333,11 @@ $(function () {
 
     document.getElementById('attQryRun').onclick = function () {
         map.set("isLoading", 'YES');
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
         if (featureOverlay) {
             featureOverlay.getSource().clear();
             map.removeLayer(featureOverlay);
@@ -275,11 +367,26 @@ $(function () {
             else {
                 value_txt = value_txt;
             }
+<<<<<<< HEAD
             var url = "http://localhost:8080/geoserver/gismapping/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER=" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
 
             newaddGeoJsonToMap(url);
             newpopulateQueryTable(url);
             setTimeout(function () { newaddRowHandlers(url); }, 10000);
+=======
+<<<<<<< HEAD
+            var url = "http://localhost:8080/geoserver/gismapping/ows?service=WFS&version=1.1.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
+=======
+
+          
+            var url = "http://localhost:8080/geoserver/gismapping/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + value_layer + "&CQL_FILTER" + value_attribute + "+" + value_operator + "+'" + value_txt + "'&outputFormat=application/json"
+>>>>>>> 2755d1a242c8c1d20b20db3ae98ee782efe48871
+            //console.log(url);
+
+            newaddGeoJsonToMap(url);
+            newpopulateQueryTable(url);
+            setTimeout(function () { newaddRowHandlers(url); }, 300);
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
             map.set("isLoading", 'NO');
         }
     }
@@ -294,7 +401,16 @@ function newaddGeoJsonToMap(url) {
         map.removeLayer(geojson);
     }
 
+<<<<<<< HEAD
     var style = new ol.style.Style({
+=======
+<<<<<<< HEAD
+    var style = new ol.style.Style({
+=======
+
+    var style = new ol.style.style({
+>>>>>>> 2755d1a242c8c1d20b20db3ae98ee782efe48871
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
         //fill: new ol.style.Fill({
         //color: 'rgba (0, 255, 255, 0.7)'
         //});
@@ -446,7 +562,11 @@ function newaddRowHandlers() {
                 var features = geojson.getSource().getFeatures();
 
                 for (i = 0; i < features.length; i++) {
+<<<<<<< HEAD
                     if (features[i].getId() == id) {
+=======
+                    if (features[i].getID() == id) {
+>>>>>>> 67f94e63b621a1ff48ba06382735de3996a8f736
                         featureOverlay.getSource().addFeature(features[i]);
 
                         featureOverlay.getSource().on('addfeature', function () {
@@ -462,3 +582,26 @@ function newaddRowHandlers() {
     }
 }
 // end: attribute query
+
+
+//Add Layer To List of Layers 
+
+function addLi() {
+
+    var title = document.getElementById('layerTitle').value,
+        url = document.getElementById('layerUrl').value;
+
+    var listNode = document.getElementById('layerUL');
+    var liNode = document.createElement("LI");
+
+    var titleNode = document.createTextNode(title),
+        urlNode = document.createTextNode(url);
+
+    liNode.appendChild(titleNode);
+    liNode.appendChild(urlNode);
+    listNode.appendChild(liNode);
+
+    document.getElementById('serviceForm').submit(function (event) {
+        event.preventDefault();
+    });
+}
